@@ -1,0 +1,78 @@
+<%- include("partials/header") %>
+
+<main>
+
+    <section class="detalle container">
+
+        <article class="detalle-card">
+
+            <!-- IMAGEN -->
+            <img
+                src="<%= pelicula.imagen %>"
+                alt="Poster de <%= pelicula.titulo %>"
+                class="detalle-poster"
+            >
+
+            <!-- INFORMACIÓN -->
+            <span class="genero">
+                <%= pelicula.genero %>
+            </span>
+
+            <h2>
+                <%= pelicula.titulo %>
+            </h2>
+
+            <p class="descripcion">
+                <%= pelicula.descripcion %>
+            </p>
+
+            <div class="informacion">
+
+                <p>
+                    <strong>Año:</strong>
+                    <%= pelicula.año %>
+                </p>
+
+                <p>
+                    <strong>Calificación:</strong>
+                    ⭐ <%= pelicula.calificacion %>
+                </p>
+
+                <p>
+                    <strong>Director:</strong>
+                    <%= pelicula.director.nombre %>
+                </p>
+
+                <p>
+                    <strong>País:</strong>
+                    <%= pelicula.director.pais %>
+                </p>
+
+            </div>
+
+            <!-- CONDICIONAL -->
+            <% if (pelicula.calificacion >= 8.5) { %>
+
+                <div class="mensaje recomendado">
+                    ⭐ ¡Película recomendada!
+                </div>
+
+            <% } else { %>
+
+                <div class="mensaje normal">
+                    🎬 Una buena opción para ver.
+                </div>
+
+            <% } %>
+
+            <a href="/" class="btn">
+                ← Volver al catálogo
+            </a>
+
+        </article>
+
+    </section>
+
+</main>
+
+<%- include("partials/footer") %>

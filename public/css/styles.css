@@ -1,0 +1,192 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+header {
+    background: #020617;
+    padding: 20px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    color: #facc15;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    padding: 40px 8%;
+}
+
+section:first-child {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+section:first-child h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+section:first-child p {
+    color: #cbd5e1;
+}
+
+/* CONTENEDOR DE PELÍCULAS */
+
+.peliculas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+/* TARJETA */
+
+.card {
+    width: 280px;
+    background: #1e293b;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* IMAGEN */
+
+.poster {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+}
+
+/* INFORMACIÓN */
+
+.card-content {
+    padding: 20px;
+}
+
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #cbd5e1;
+    margin-bottom: 8px;
+}
+
+/* BOTÓN */
+
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 16px;
+
+    background: #facc15;
+    color: #020617;
+
+    text-decoration: none;
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #fde047;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 50px;
+    padding: 30px;
+    text-align: center;
+    background: #020617;
+    color: #94a3b8;
+}
+.poster {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+}
+.detalle-poster {
+    width: 280px;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 25px;
+    border-radius: 12px;
+}
+
+.detalle {
+    padding: 60px 0;
+}
+
+.detalle-card {
+    max-width: 700px;
+    margin: auto;
+    background: #1e293b;
+    padding: 35px;
+    border-radius: 15px;
+}
+
+.detalle-poster {
+    width: 280px;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 25px;
+    border-radius: 12px;
+}
+
+.detalle-card h2 {
+    font-size: 40px;
+    margin: 15px 0;
+}
+
+.descripcion {
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin: 20px 0;
+}
+
+.informacion {
+    margin: 25px 0;
+}
+
+.informacion p {
+    margin-bottom: 12px;
+}
+
+.mensaje {
+    padding: 15px;
+    margin: 25px 0;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.recomendado {
+    background: #713f12;
+    color: #fef08a;
+}
+
+.normal {
+    background: #334155;
+    color: #e2e8f0;
+}

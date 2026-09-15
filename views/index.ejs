@@ -1,0 +1,82 @@
+<%- include("partials/header") %>
+
+<main>
+
+    <section class="hero">
+        <div class="container">
+
+            <h2>Catálogo de películas</h2>
+
+            <p>
+                Explora nuestra selección de películas.
+            </p>
+
+        </div>
+    </section>
+
+    <section class="catalogo container">
+
+        <h2>Películas</h2>
+
+        <div class="peliculas">
+
+            <% peliculas.forEach(pelicula => { %>
+
+                <article class="card">
+
+                    <img
+                        src="/img/<%= pelicula.imagen %>"
+                        alt="Poster de <%= pelicula.titulo %>"
+                        class="poster"
+                    >
+
+                    <div class="card-content">
+
+                        <h3>
+                            <%= pelicula.titulo %>
+                        </h3>
+
+                        <% if (pelicula.genero) { %>
+                            <p>
+                                Género: <%= pelicula.genero %>
+                            </p>
+                        <% } %>
+
+                        <% if (pelicula.año) { %>
+                            <p>
+                                Año: <%= pelicula.año %>
+                            </p>
+                        <% } %>
+
+                        <% if (pelicula.calificacion) { %>
+                            <p>
+                                ⭐ <%= pelicula.calificacion %>
+                            </p>
+                        <% } %>
+
+                        <% if (pelicula.descripcion) { %>
+                            <p>
+                                <%= pelicula.descripcion %>
+                            </p>
+                        <% } %>
+
+                        <a
+                            href="/peliculas/<%= pelicula._id %>"
+                            class="btn"
+                        >
+                            Ver detalles
+                        </a>
+
+                    </div>
+
+                </article>
+
+            <% }) %>
+
+        </div>
+
+    </section>
+
+</main>
+
+<%- include("partials/footer") %>
