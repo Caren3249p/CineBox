@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineBox - Detalle de Película</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>CineBox</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="detalle container" id="contenedor-detalle">
+            <p>Cargando información de la película...</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CineBox - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        // Capturar el parámetro 'id' de la URL (ej: detalle.html?id=65a123...)
+        const urlParams = new URLSearchParams(window.location.search);
+        const peliculaId = urlParams.get('id');
+
+        async function cargarDetalle() {
+            const contenedor = document.getElementById('contenedor-detalle');
+
+            if (!peliculaId) {
+                contenedor.innerHTML = '<p>No se especificó ninguna película. <a href="index.html">Volver al catálogo</a></p>';
+                return;
+            }
+
+            try {
+                const respuesta = await fetch(`http://localhost:3000/api/peliculas/${peliculaId}`);
+                
+                if (!respuesta.ok) {
+                    throw new Error('Película no encontrada');
+                }
+
+                const pelicula = await respuesta.json();
+
+                const esRecomendada = pelicula.calificacion >= 8.5;
+                const mensajeHTML = esRecomendada 
+                    ? '<div class="mensaje recomendado">⭐ ¡Película recomendada!</div>'
+                    : '<div class="mensaje normal">🎬 Una buena opción para ver.</div>';
+
+                contenedor.innerHTML = `
+                    <article class="detalle-card">
+                        <img
+                            src="public/img/${pelicula.imagen || 'default.jpg'}"
+                            alt="Poster de ${pelicula.titulo}"
+                            class="detalle-poster"
+                        >
+
+                        <div class="card-content">
+                            ${pelicula.genero ? `<span class="genero">${pelicula.genero}</span>` : ''}
+                            <h2>${pelicula.titulo}</h2>
+                            ${pelicula.descripcion ? `<p class="descripcion">${pelicula.descripcion}</p>` : ''}
+
+                            <div class="informacion">
+                                ${pelicula.año ? `<p><strong>Año:</strong> ${pelicula.año}</p>` : ''}
+                                ${pelicula.calificacion ? `<p><strong>Calificación:</strong> ⭐ ${pelicula.calificacion}</p>` : ''}
+                                ${pelicula.director && pelicula.director.nombre ? `<p><strong>Director:</strong> ${pelicula.director.nombre}</p>` : ''}
+                                ${pelicula.director && pelicula.director.pais ? `<p><strong>País:</strong> ${pelicula.director.pais}</p>` : ''}
+                            </div>
+
+                            ${pelicula.calificacion ? mensajeHTML : ''}
+
+                            <br>
+                            <a href="index.html" class="btn">← Volver al catálogo</a>
+                        </div>
+                    </article>
+                `;
+            } catch (error) {
+                console.error('Error al obtener detalle:', error);
+                contenedor.innerHTML = '<p>Error al obtener la información de la película. <a href="index.html">Volver al catálogo</a></p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarDetalle);
+    </script>
+</body>
+</html>
