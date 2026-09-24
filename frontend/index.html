@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineBox - Catálogo de Películas</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>CineBox</h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Catálogo de películas</h2>
+            <p>Explora nuestra selección de películas.</p>
+        </section>
+
+        <section>
+            <div class="peliculas" id="contenedor-peliculas">
+                <p>Cargando películas...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CineBox - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/peliculas';
+
+        async function cargarPeliculas() {
+            try {
+                const respuesta = await fetch(API_URL);
+                const peliculas = await respuesta.json();
+
+                const contenedor = document.getElementById('contenedor-peliculas');
+                contenedor.innerHTML = '';
+
+                if (peliculas.length === 0) {
+                    contenedor.innerHTML = '<p>No hay películas en el catálogo.</p>';
+                    return;
+                }
+
+                peliculas.forEach(pelicula => {
+                    const article = document.createElement('article');
+                    article.className = 'card';
+
+                    article.innerHTML = `
+                        <img
+                            src="public/img/${pelicula.imagen || 'default.jpg'}"
+                            alt="Poster de ${pelicula.titulo}"
+                            class="poster"
+                        >
+                        <div class="card-content">
+                            <h3>${pelicula.titulo}</h3>
+                            ${pelicula.genero ? `<p><strong>Género:</strong> ${pelicula.genero}</p>` : ''}
+                            ${pelicula.año ? `<p><strong>Año:</strong> ${pelicula.año}</p>` : ''}
+                            ${pelicula.calificacion ? `<p>⭐ ${pelicula.calificacion}</p>` : ''}
+                            ${pelicula.descripcion ? `<p>${pelicula.descripcion}</p>` : ''}
+                            <a href="detalle.html?id=${pelicula._id}" class="btn">
+                                Ver detalles
+                            </a>
+                        </div>
+                    `;
+
+                    contenedor.appendChild(article);
+                });
+            } catch (error) {
+                console.error('Error al cargar catálogo:', error);
+                document.getElementById('contenedor-peliculas').innerHTML = 
+                    '<p>Error al conectar con la API backend.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarPeliculas);
+    </script>
+</body>
+</html>
